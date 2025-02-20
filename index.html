@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Portfolio</title>
+    <style>
+        /* CSS Reset and Variables */
+        :root {
+            --primary-color: #2563eb;
+            --text-color: #1f2937;
+            --bg-color: #ffffff;
+            --card-bg: #f3f4f6;
+        }
+
+        [data-theme="dark"] {
+            --primary-color: #60a5fa;
+            --text-color: #f3f4f6;
+            --bg-color: #111827;
+            --card-bg: #1f2937;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        /* Header & Navigation */
+        header {
+            padding: 1rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            background-color: var(--bg-color);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        /* Theme Switch */
+        .theme-switch {
+            position: relative;
+            width: 60px;
+            height: 30px;
+        }
+
+        .theme-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            border-radius: 34px;
+            transition: .4s;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 22px;
+            width: 22px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            border-radius: 50%;
+            transition: .4s;
+        }
+
+        input:checked + .slider {
+            background-color: var(--primary-color);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(30px);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            animation: zoomIn 20s infinite alternate;
+        }
+
+        .hero-content {
+            position: absolute;
+            text-align: center;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            animation: fadeIn 1s ease-out;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Gallery Section */
+        .gallery {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+
+        /* Projects Section */
+        .projects {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 2rem;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .project-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .project-content {
+            padding: 1.5rem;
+        }
+
+        .project-content h3 {
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        /* Animations */
+        @keyframes zoomIn {
+            from { transform: scale(1); }
+            to { transform: scale(1.1); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Portfolio</div>
+            <label class="theme-switch">
+                <input type="checkbox" id="theme-toggle">
+                <span class="slider"></span>
+            </label>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <img src="images/pic02.jpg" alt="Hero Image" class="hero-image">
+        <div class="hero-content">
+            <h1>Welcome to My Portfolio</h1>
+            <p>Crafting digital experiences with passion</p>
+        </div>
+    </section>
+
+    <section class="gallery">
+        <div class="gallery-item">
+            <img src="images/pic01.jpg" alt="Gallery Image 1">
+        </div>
+        <div class="gallery-item">
+            <img src="images/pic02.jpg" alt="Gallery Image 2">
+        </div>
+        <div class="gallery-item">
+            <img src="images/pic03.jpg" alt="Gallery Image 3">
+        </div>
+        <div class="gallery-item">
+            <img src="images/pic04.jpg" alt="Gallery Image 4">
+        </div>
+    </section>
+
+    <section class="projects">
+        <div class="project-grid">
+            <div class="project-card" onclick="window.location.href='https://jekyllrb.com'">
+                <img src="images/pic01.jpg" alt="Project 1">
+                <div class="project-content">
+                    <h3>Project One</h3>
+                    <p>An innovative solution for modern problems</p>
+                </div>
+            </div>
+            <div class="project-card" onclick="window.location.href='https://jekyllrb.com'">
+                <img src="images/pic02.jpg" alt="Project 2">
+                <div class="project-content">
+                    <h3>Project Two</h3>
+                    <p>Pushing boundaries with cutting-edge tech</p>
+                </div>
+            </div>
+            <div class="project-card" onclick="window.location.href='https://jekyllrb.com'">
+                <img src="images/pic03.jpg" alt="Project 3">
+                <div class="project-content">
+                    <h3>Project Three</h3>
+                    <p>Creating seamless user experiences</p>
+                </div>
+            </div>
+            <div class="project-card" onclick="window.location.href='https://jekyllrb.com'">
+                <img src="images/pic04.jpg" alt="Project 4">
+                <div class="project-content">
+                    <h3>Project Four</h3>
+                    <p>Transforming ideas into reality</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Theme Toggle Functionality
+        const themeToggle = document.getElementById('theme-toggle');
+        
+        themeToggle.addEventListener('change', function() {
+            if (themeToggle.checked) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        });
+
+        // Gallery Animation on Scroll
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        
+        const observerOptions = {
+            threshold: 0.5
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        galleryItems.forEach(function(item) {
+            item.style.opacity = '0';
+            item.style.transform = 'translateY(20px)';
+            item.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
+            observer.observe(item);
+        });
+    </script>
+</body>
+</html>
